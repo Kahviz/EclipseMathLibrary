@@ -1,42 +1,43 @@
 #include <immintrin.h>
 #include <iostream>
 #include <cmath>
-class Vector2 {
+
+class Vector3 {
 private:
     alignas(16) float data[4];
 public:
     //Constructors
-    Vector2() {
+    Vector3() {
         data[0] = 0.0f;
         data[1] = 0.0f;
         data[2] = 0.0f;
         data[3] = 0.0f;
     }
-    Vector2(float xy) {
-        data[0] = xy;
-        data[1] = xy;
-        data[2] = 0.0f;
+    Vector3(float xyz) {
+        data[0] = xyz;
+        data[1] = xyz;
+        data[2] = xyz;
         data[3] = 0.0f;
     }
-    Vector2(float x, float y) {
+    Vector3(float x, float y,float z) {
         data[0] = x;
         data[1] = y;
-        data[2] = 0.0f;
+        data[2] = z;
         data[3] = 0.0f;
     }
 
-    Vector2(const float* arr) {
+    Vector3(const float* arr) {
         data[0] = arr[0];
         data[1] = arr[1];
-        data[2] = 0.0f;
+        data[2] = arr[2];
         data[3] = 0.0f;
     };
 
-    Vector2(const __m128& simd) {
+    Vector3(const __m128& simd) {
         _mm_store_ps(data, simd);
     }
 
-    Vector2(const Vector2& other) {
+    Vector3(const Vector3& other) {
         __m128 v = _mm_load_ps(other.data);
         _mm_store_ps(data, v);
     }
@@ -44,11 +45,12 @@ public:
     //Operators
     //+
 
-    Vector2 operator+() const {
+    Vector3 operator+() const {
         return *this;
     }
-    Vector2 operator+(float scalar) const {
-        Vector2 result;
+
+    Vector3 operator+(float scalar) const {
+        Vector3 result;
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_set1_ps(scalar);
         __m128 sum = _mm_add_ps(a, b);
@@ -56,8 +58,8 @@ public:
         return result;
     }
 
-    Vector2 operator+(const Vector2& other) const {
-        Vector2 result;
+    Vector3 operator+(const Vector3& other) const {
+        Vector3 result;
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_load_ps(other.data);
         __m128 sum = _mm_add_ps(a, b);
@@ -65,7 +67,7 @@ public:
         return result;
     }
 
-    Vector2& operator+=(const Vector2& other) {
+    Vector3& operator+=(const Vector3& other) {
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_load_ps(other.data);
         __m128 sum = _mm_add_ps(a, b);
@@ -74,12 +76,12 @@ public:
     }
 
     //-
-    Vector2 operator-() const {
-        return Vector2(-data[0], -data[1]);
+    Vector3 operator-() const {
+        return Vector3(-data[0], -data[1], -data[2]);
     }
 
-    Vector2 operator-(float scalar) const {
-        Vector2 result;
+    Vector3 operator-(float scalar) const {
+        Vector3 result;
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_set1_ps(scalar);
         __m128 diff = _mm_sub_ps(a, b);
@@ -87,8 +89,8 @@ public:
         return result;
     }
 
-    Vector2 operator-(const Vector2& other) const {
-        Vector2 result;
+    Vector3 operator-(const Vector3& other) const {
+        Vector3 result;
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_load_ps(other.data);
         __m128 diff = _mm_sub_ps(a, b);
@@ -96,7 +98,7 @@ public:
         return result;
     }
 
-    Vector2& operator-=(const Vector2& other) {
+    Vector3& operator-=(const Vector3& other) {
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_load_ps(other.data);
         __m128 diff = _mm_sub_ps(a, b);
@@ -105,8 +107,8 @@ public:
     }
 
     //*
-    Vector2 operator*(float scalar) const {
-        Vector2 result;
+    Vector3 operator*(float scalar) const {
+        Vector3 result;
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_set1_ps(scalar);
         __m128 prod = _mm_mul_ps(a, b);
@@ -114,8 +116,8 @@ public:
         return result;
     }
 
-    Vector2 operator*(const Vector2& other) const {
-        Vector2 result;
+    Vector3 operator*(const Vector3& other) const {
+        Vector3 result;
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_load_ps(other.data);
         __m128 prod = _mm_mul_ps(a, b);
@@ -123,7 +125,7 @@ public:
         return result;
     }
 
-    Vector2& operator*=(const Vector2& other) {
+    Vector3& operator*=(const Vector3& other) {
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_load_ps(other.data);
         __m128 prod = _mm_mul_ps(a, b);
@@ -132,8 +134,8 @@ public:
     }
 
     // /
-    Vector2 operator/(float scalar) const {
-        Vector2 result;
+    Vector3 operator/(float scalar) const {
+        Vector3 result;
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_set1_ps(scalar);
         __m128 quot = _mm_div_ps(a, b);
@@ -141,8 +143,8 @@ public:
         return result;
     }
 
-    Vector2 operator/(const Vector2& other) const {
-        Vector2 result;
+    Vector3 operator/(const Vector3& other) const {
+        Vector3 result;
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_load_ps(other.data);
         __m128 quot = _mm_div_ps(a, b);
@@ -150,7 +152,7 @@ public:
         return result;
     }
 
-    Vector2& operator/=(const Vector2& other) {
+    Vector3& operator/=(const Vector3& other) {
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_load_ps(other.data);
         __m128 quot = _mm_div_ps(a, b);
@@ -160,7 +162,7 @@ public:
 
     // =
 
-    Vector2& operator=(const Vector2& other) {
+    Vector3& operator=(const Vector3& other) {
         if (this != &other) {
             data[0] = other.data[0];
             data[1] = other.data[1];
@@ -171,16 +173,19 @@ public:
         return *this;
     }
 
-    bool operator==(const Vector2& other) const {
-        return data[0] == other.data[0] && data[1] == other.data[1];
+    bool operator==(const Vector3& other) const {
+        return data[0] == other.data[0] &&
+            data[1] == other.data[1] &&
+            data[2] == other.data[2];
     }
 
-    bool operator!=(const Vector2& other) const {
+    bool operator!=(const Vector3& other) const {
         return !(*this == other);
     }
 
     float x() const { return data[0]; }
     float y() const { return data[1]; }
+    float z() const { return data[2]; }
 
     //util
     float length() const {
@@ -189,7 +194,7 @@ public:
 
         float temp[4];
         _mm_store_ps(temp, sq);
-        return std::sqrt(temp[0] + temp[1]);
+        return std::sqrt(temp[0] + temp[1] + temp[2]);
     }
 
     float lengthSquared() const {
@@ -197,15 +202,15 @@ public:
         __m128 sq = _mm_mul_ps(a, a);
         float temp[4];
         _mm_store_ps(temp, sq);
-        return temp[0] + temp[1];
+        return temp[0] + temp[1] + temp[2];
     }
 
-    Vector2 normalized() const {
+    Vector3 normalized() const {
         float len = length();
         if (len > 0.0f) {
             return *this * (1.0f / len);
         }
-        return Vector2(0.0f, 0.0f);
+        return Vector3(0.0f, 0.0f,0.0f);
     }
 
     void normalize() {
@@ -219,101 +224,155 @@ public:
         }
     }
 
-    float dot(const Vector2& other) const {
+    float dot(const Vector3& other) const {
         __m128 a = _mm_load_ps(data);
         __m128 b = _mm_load_ps(other.data);
         __m128 prod = _mm_mul_ps(a, b);
         float temp[4];
         _mm_store_ps(temp, prod);
-        return temp[0] + temp[1];
+        return temp[0] + temp[1] + temp[2];
     }
 
     //Setters
-    void set(float newX, float newY) {
+    void set(float newX, float newY,float newZ) {
         data[0] = newX;
         data[1] = newY;
+        data[2] = newZ;
     }
 
-    void set(const Vector2& other) {
+    void set(const Vector3& other) {
         __m128 v = _mm_load_ps(other.data);
         _mm_store_ps(data, v);
     }
 
-    float cross(const Vector2& other) const {
-        return data[0] * other.data[1] - data[1] * other.data[0];
+    Vector3 cross(const Vector3& other) const {
+        return Vector3(
+            data[1] * other.data[2] - data[2] * other.data[1],
+            data[2] * other.data[0] - data[0] * other.data[2],
+            data[0] * other.data[1] - data[1] * other.data[0]
+        );
     }
 
-    float distance(const Vector2& other) const {
+    float distance(const Vector3& other) const {
         return (*this - other).length();
     }
 
-    float distanceSquared(const Vector2& other) const {
+    float distanceSquared(const Vector3& other) const {
         return (*this - other).lengthSquared();
     }
 
-    Vector2 lerp(const Vector2& other, float t) const {
+    Vector3 lerp(const Vector3& other, float t) const {
         return *this * (1.0f - t) + other * t;
     }
 
-    float angle(const Vector2& other) const {
+    float angle(const Vector3& other) const {
         float dotProduct = dot(other);
         float lengths = length() * other.length();
         if (lengths == 0.0f) return 0.0f;
         return std::acos(dotProduct / lengths);
     }
 
-    Vector2 rotated(float angle) const {
+    Vector3 rotated(float angle, const Vector3& axis) const {
         float s = std::sin(angle);
         float c = std::cos(angle);
-        return Vector2(
-            data[0] * c - data[1] * s,
-            data[0] * s + data[1] * c
+        float oneMinusC = 1.0f - c;
+
+        Vector3 normAxis = axis.normalized();
+        float x = normAxis.x();
+        float y = normAxis.y();
+        float z = normAxis.z();
+
+        return Vector3(
+            data[0] * (c + x * x * oneMinusC) +
+            data[1] * (x * y * oneMinusC - z * s) +
+            data[2] * (x * z * oneMinusC + y * s),
+
+            data[0] * (y * x * oneMinusC + z * s) +
+            data[1] * (c + y * y * oneMinusC) +
+            data[2] * (y * z * oneMinusC - x * s),
+
+            data[0] * (z * x * oneMinusC - y * s) +
+            data[1] * (z * y * oneMinusC + x * s) +
+            data[2] * (c + z * z * oneMinusC)
         );
     }
 
-    Vector2 projectOnto(const Vector2& onto) const {
+    Vector3 rotatedX(float angle) const {
+        float s = std::sin(angle);
+        float c = std::cos(angle);
+        return Vector3(
+            data[0],
+            data[1] * c - data[2] * s,
+            data[1] * s + data[2] * c
+        );
+    }
+
+    Vector3 rotatedY(float angle) const {
+        float s = std::sin(angle);
+        float c = std::cos(angle);
+        return Vector3(
+            data[0] * c + data[2] * s,
+            data[1],
+            -data[0] * s + data[2] * c
+        );
+    }
+
+    Vector3 rotatedZ(float angle) const {
+        float s = std::sin(angle);
+        float c = std::cos(angle);
+        return Vector3(
+            data[0] * c - data[1] * s,
+            data[0] * s + data[1] * c,
+            data[2]
+        );
+    }
+
+    Vector3 projectOnto(const Vector3& onto) const {
         float ontoLengthSq = onto.lengthSquared();
-        if (ontoLengthSq == 0.0f) return Vector2::Zero();
+        if (ontoLengthSq == 0.0f) return Vector3::Zero();
         return onto * (dot(onto) / ontoLengthSq);
     }
 
-    Vector2 reflect(const Vector2& normal) const {
+    Vector3 reflect(const Vector3& normal) const {
         return *this - normal * (2.0f * dot(normal));
     }
 
-    Vector2 abs() const {
-        return Vector2(
+    Vector3 abs() const {
+        return Vector3(
             std::abs(data[0]),
-            std::abs(data[1])
+            std::abs(data[1]),
+            std::abs(data[2])
         );
     }
 
-    Vector2 min(const Vector2& other) const {
-        return Vector2(
+    Vector3 min(const Vector3& other) const {
+        return Vector3(
             std::min(data[0], other.data[0]),
-            std::min(data[1], other.data[1])
+            std::min(data[1], other.data[1]),
+            std::min(data[2], other.data[2])
         );
     }
 
-    Vector2 max(const Vector2& other) const {
-        return Vector2(
+    Vector3 max(const Vector3& other) const {
+        return Vector3(
             std::max(data[0], other.data[0]),
-            std::max(data[1], other.data[1])
+            std::max(data[1], other.data[1]),
+            std::max(data[2], other.data[2])
         );
     }
-
 
     const float* data_ptr() const { return data; }
     float* data_ptr() { return data; }
 
     //standards
-    static Vector2 Zero() { return Vector2(0.0f, 0.0f); }
-    static Vector2 One() { return Vector2(1.0f, 1.0f); }
-    static Vector2 UnitX() { return Vector2(1.0f, 0.0f); }
-    static Vector2 UnitY() { return Vector2(0.0f, 1.0f); }
+    static Vector3 Zero() { return Vector3(0.0f, 0.0f,0.0f); }
+    static Vector3 One() { return Vector3(1.0f, 1.0f,1.0f); }
+    static Vector3 UnitX() { return Vector3(1.0f, 0.0f,0.0f); }
+    static Vector3 UnitY() { return Vector3(0.0f, 1.0f,0.0f); }
+    static Vector3 UnitZ() { return Vector3(0.0f, 0.0f, 1.0f); }
 };
 
-std::ostream& operator<<(std::ostream& os, const Vector2& vec) {
-    os << "(" << vec.x() << ", " << vec.y() << ")";
+std::ostream& operator<<(std::ostream& os, const Vector3& vec) {
+    os << "(" << vec.x() << ", " << vec.y() << ", " << vec.z() << ")";
     return os;
 }
