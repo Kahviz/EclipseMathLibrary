@@ -12,6 +12,12 @@ int main()
     Vector2 vec2_1(2, 2);
     Vector2 vec2_2(4, 4);
     Vector2 dummy;
+    Int3 int3_1 = { 1,1,1 };
+    Int3 int3_2 = { 2,2,2 };
+
+    //All Here
+    cout << int3_1 + int3_2 << endl;
+
 
     const int Times = 1000000;
     long long totalNanoseconds = 0;
