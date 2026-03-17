@@ -14,10 +14,16 @@ int main()
     Vector2 dummy;
     Int3 int3_1 = { 1,1,1 };
     Int3 int3_2 = { 2,2,2 };
+    Color255 col1 = { 255,0,0 };
+    Color255 col2 = { 255,255,0 };
+    Matrix4x4 mat1 = { 5 };
+    Matrix4x4 mat2 = { 4 };
+
 
     //All Here
     cout << int3_1 + int3_2 << endl;
-
+    cout << col1 + col2 << endl;
+    cout << mat1 - mat2 << endl;
 
     const int Times = 1000000;
     long long totalNanoseconds = 0;

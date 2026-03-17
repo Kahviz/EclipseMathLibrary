@@ -11,8 +11,16 @@ endif()
 
 project ("UntilitedMathLibrary")
 
-# Add source to this project's executable.
-add_executable (UntilitedMathLibrary "UntilitedMathLibrary.cpp" "UntilitedMathLibrary.h" "UntilitedMath/UntilitedMath.h" "UntilitedMath/SIMD/Vector3/Vector3.h" "UntilitedMath/SIMD/Vector4/Vector4.h" "UntilitedMath/SIMD/INT3/Int3.h")
+add_executable(UntilitedMathLibrary 
+	UntilitedMathLibrary.cpp
+	UntilitedMathLibrary.h
+	UntilitedMath/UntilitedMath.h
+	UntilitedMath/SIMD/Vector3/Vector3.h
+	UntilitedMath/SIMD/Vector4/Vector4.h
+	UntilitedMath/SIMD/INT3/Int3.h
+	UntilitedMath/SIMD/Color255/Color255.h
+	UntilitedMath/SIMD/Matrix4x4/Matrix4x4.h
+)
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET UntilitedMathLibrary PROPERTY CXX_STANDARD 20)
