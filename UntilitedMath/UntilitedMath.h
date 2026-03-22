@@ -1,6 +1,14 @@
 #pragma once
 
+#ifdef min
+#undef min
+#endif
+#ifdef max
+#undef max
+#endif
+
 #define UNTILITEDMATHversion 0.01
+
 #include "SIMD/Vector2/Vector2.h"
 #include "SIMD/Vector3/Vector3.h"
 #include "SIMD/Vector4/Vector4.h"
