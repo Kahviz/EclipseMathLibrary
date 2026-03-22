@@ -7,7 +7,7 @@
 #endif
 
 
-Matrix4x4 Matrix4x4LookAtRH(const Vector3& eye, const Vector3& target, const Vector3& worldUp) {
+inline Matrix4x4 Matrix4x4LookAtRH(const Vector3& eye, const Vector3& target, const Vector3& worldUp) {
     Vector3 zaxis = Vector3(
         target.x() - eye.x()
     );
@@ -36,7 +36,7 @@ Matrix4x4 Matrix4x4LookAtRH(const Vector3& eye, const Vector3& target, const Vec
     return result;
 }
 
-Matrix4x4 Matrix4x4LookAtLH(const Vector3& eye, const Vector3& target, const Vector3& worldUp) {
+inline Matrix4x4 Matrix4x4LookAtLH(const Vector3& eye, const Vector3& target, const Vector3& worldUp) {
     Vector3 zaxis = target - eye;
     zaxis.normalize();
 
@@ -62,7 +62,7 @@ Matrix4x4 Matrix4x4LookAtLH(const Vector3& eye, const Vector3& target, const Vec
     return result;
 }
 
-Matrix4x4 Matrix4x4PerspectiveFovLH(float fovRadians, float aspect, float nearZ, float farZ) {
+inline Matrix4x4 Matrix4x4PerspectiveFovLH(float fovRadians, float aspect, float nearZ, float farZ) {
     float f = 1.0f / tanf(fovRadians / 2.0f);
 
     Matrix4x4 m = {};
@@ -76,7 +76,7 @@ Matrix4x4 Matrix4x4PerspectiveFovLH(float fovRadians, float aspect, float nearZ,
     return m;
 }
 
-Matrix4x4 Matrix4x4PerspectiveFovRH(float fovRadians, float aspect, float nearZ, float farZ) {
+inline Matrix4x4 Matrix4x4PerspectiveFovRH(float fovRadians, float aspect, float nearZ, float farZ) {
     float f = 1.0f / tanf(fovRadians / 2.0f);
 
     Matrix4x4 m = {};
