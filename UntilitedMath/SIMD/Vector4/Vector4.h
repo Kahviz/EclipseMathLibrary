@@ -200,8 +200,8 @@ public:
     float& z() { return data[2]; }
     const float& z() const { return data[2]; }
 
-    float& w() { return data[2]; }
-    const float& w() const { return data[2]; }
+    float& w() { return data[3]; }
+    const float& w() const { return data[3]; }
 
     //util
     float length() const {
