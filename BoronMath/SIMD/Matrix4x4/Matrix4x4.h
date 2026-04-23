@@ -98,45 +98,27 @@ public:
     Matrix4x4 operator*(const Matrix4x4& other) const {
         Matrix4x4 result;
 
-        __m128 row0 = _mm_load_ps(&data[0]);
-        __m128 row1 = _mm_load_ps(&data[4]);
-        __m128 row2 = _mm_load_ps(&data[8]);
-        __m128 row3 = _mm_load_ps(&data[12]);
+        for (int row = 0; row < 4; row++) {
+            __m128 rowVec = _mm_load_ps(&data[row * 4]);
 
-        __m128 col0 = _mm_load_ps(&other.data[0]);
-        __m128 col1 = _mm_load_ps(&other.data[4]);
-        __m128 col2 = _mm_load_ps(&other.data[8]);
-        __m128 col3 = _mm_load_ps(&other.data[12]);
+            for (int col = 0; col < 4; col++) {
+                __m128 colVec = _mm_set_ps(
+                    other(3, col),
+                    other(2, col),
+                    other(1, col),
+                    other(0, col)
+                );
 
-        _MM_TRANSPOSE4_PS(col0, col1, col2, col3);
+                __m128 mul = _mm_mul_ps(rowVec, colVec);
 
-        __m128 res_row0 = _mm_add_ps(
-            _mm_add_ps(_mm_mul_ps(row0, col0), _mm_mul_ps(row0, col1)),
-            _mm_add_ps(_mm_mul_ps(row0, col2), _mm_mul_ps(row0, col3))
-        );
+                __m128 shuf = _mm_movehl_ps(mul, mul);
+                __m128 sum = _mm_add_ps(mul, shuf);
+                shuf = _mm_shuffle_ps(sum, sum, 0x55);
+                sum = _mm_add_ss(sum, shuf);
 
-        __m128 res_row1 = _mm_add_ps(
-            _mm_add_ps(_mm_mul_ps(row1, col0), _mm_mul_ps(row1, col1)),
-            _mm_add_ps(_mm_mul_ps(row1, col2), _mm_mul_ps(row1, col3))
-        );
-
-        __m128 res_row2 = _mm_add_ps(
-            _mm_add_ps(_mm_mul_ps(row2, col0), _mm_mul_ps(row2, col1)),
-            _mm_add_ps(_mm_mul_ps(row2, col2), _mm_mul_ps(row2, col3))
-        );
-
-        __m128 res_row3 = _mm_add_ps(
-            _mm_add_ps(_mm_mul_ps(row3, col0), _mm_mul_ps(row3, col1)),
-            _mm_add_ps(_mm_mul_ps(row3, col2), _mm_mul_ps(row3, col3))
-        );
-
-
-        _MM_TRANSPOSE4_PS(res_row0, res_row1, res_row2, res_row3);
-
-        _mm_store_ps(&result.data[0], res_row0);
-        _mm_store_ps(&result.data[4], res_row1);
-        _mm_store_ps(&result.data[8], res_row2);
-        _mm_store_ps(&result.data[12], res_row3);
+                result(row, col) = _mm_cvtss_f32(sum);
+            }
+        }
 
         return result;
     }
