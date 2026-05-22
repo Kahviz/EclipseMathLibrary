@@ -380,6 +380,6 @@ public:
 };
 
 inline std::ostream& operator<<(std::ostream& os, const Color255& vec) {
-    os << "(" << vec.x() << ", " << vec.y() << ", " << vec.z() << ")";
+    os << vec.x() << ", " << vec.y() << ", " << vec.z();
     return os;
 }
