@@ -7,20 +7,20 @@
 #endif
 
 
-inline Matrix4x4 Matrix4x4LookAtRH(const Vector3& eye, const Vector3& target, const Vector3& worldUp) {
-    Vector3 zaxis = Vector3(
+inline BML::Matrix4x4 Matrix4x4LookAtRH(const BML::Vector3& eye, const BML::Vector3& target, const BML::Vector3& worldUp) {
+    BML::Vector3 zaxis = BML::Vector3(
         target.x() - eye.x()
     );
 
     zaxis.normalize();
 
-    Vector3 xaxis = zaxis.cross(worldUp);
+    BML::Vector3 xaxis = zaxis.cross(worldUp);
     xaxis.normalize();
 
-    Vector3 yaxis = xaxis.cross(zaxis);
+    BML::Vector3 yaxis = xaxis.cross(zaxis);
     yaxis.normalize();
 
-    Matrix4x4 result;
+    BML::Matrix4x4 result;
 
     result(0, 0) = xaxis.x(); result(0, 1) = xaxis.y(); result(0, 2) = xaxis.z();
     result(0, 3) = -xaxis.dot(eye);
@@ -36,17 +36,17 @@ inline Matrix4x4 Matrix4x4LookAtRH(const Vector3& eye, const Vector3& target, co
     return result;
 }
 
-inline Matrix4x4 Matrix4x4LookAtLH(const Vector3& eye, const Vector3& target, const Vector3& worldUp) {
-    Vector3 zaxis = target - eye;
+inline BML::Matrix4x4 Matrix4x4LookAtLH(const BML::Vector3& eye, const BML::Vector3& target, const BML::Vector3& worldUp) {
+    BML::Vector3 zaxis = target - eye;
     zaxis.normalize();
 
-    Vector3 xaxis = worldUp.cross(zaxis);
+    BML::Vector3 xaxis = worldUp.cross(zaxis);
     xaxis.normalize();
 
-    Vector3 yaxis = zaxis.cross(xaxis);
+    BML::Vector3 yaxis = zaxis.cross(xaxis);
     yaxis.normalize();
 
-    Matrix4x4 result;
+    BML::Matrix4x4 result;
 
     result(0, 0) = xaxis.x(); result(0, 1) = xaxis.y(); result(0, 2) = xaxis.z();
     result(0, 3) = -xaxis.dot(eye);
@@ -62,10 +62,10 @@ inline Matrix4x4 Matrix4x4LookAtLH(const Vector3& eye, const Vector3& target, co
     return result;
 }
 
-inline Matrix4x4 Matrix4x4PerspectiveFovRH(float fovRadians, float aspect, float nearZ, float farZ) {
+inline BML::Matrix4x4 Matrix4x4PerspectiveFovRH(float fovRadians, float aspect, float nearZ, float farZ) {
     float f = 1.0f / tanf(fovRadians / 2.0f);
 
-    Matrix4x4 m = {};
+    BML::Matrix4x4 m = {};
 
     m(0, 0) = f / aspect;
     m(1, 1) = f;
@@ -76,10 +76,10 @@ inline Matrix4x4 Matrix4x4PerspectiveFovRH(float fovRadians, float aspect, float
     return m;
 }
 
-inline Matrix4x4 Matrix4x4PerspectiveFovLH(float fovRadians, float aspect, float nearZ, float farZ) {
+inline BML::Matrix4x4 Matrix4x4PerspectiveFovLH(float fovRadians, float aspect, float nearZ, float farZ) {
     float f = 1.0f / tanf(fovRadians / 2.0f);
 
-    Matrix4x4 m = {};
+    BML::Matrix4x4 m = {};
 
     m(0, 0) = f / aspect;
     m(1, 1) = f;

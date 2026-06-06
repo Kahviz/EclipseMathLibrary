@@ -1,7 +1,7 @@
 #pragma once
 #include "BoronMath.h"
 
-inline Vector4 Vector4Transform(const Vector4& v, const Matrix4x4& m) {
+inline BML::Vector4 Vector4Transform(const BML::Vector4& v, const BML::Matrix4x4& m) {
     __m128 vec = _mm_loadu_ps(v.data_ptr());
 
     __m128 col0 = _mm_set_ps(m(4, 1), m(3, 1), m(2, 1), m(1, 1));
@@ -21,12 +21,12 @@ inline Vector4 Vector4Transform(const Vector4& v, const Matrix4x4& m) {
         _mm_cvtss_f32(result_x)
     );
 
-    Vector4 output;
+    BML::Vector4 output;
     _mm_storeu_ps(output.data_ptr(), result);
     return output;
 }
 
-inline Vector3 Vector3Transform(const Vector3& v, const Matrix4x4& m) {
+inline BML::Vector3 Vector3Transform(const BML::Vector3& v, const BML::Matrix4x4& m) {
     __m128 vec = _mm_loadu_ps(v.data_ptr());
     vec = _mm_and_ps(vec, _mm_set_ps(0.0f, -0.0f, -0.0f, -0.0f));
 
@@ -45,7 +45,7 @@ inline Vector3 Vector3Transform(const Vector3& v, const Matrix4x4& m) {
         )
     );
 
-    Vector3 output;
+    BML::Vector3 output;
     _mm_storeu_ps(output.data_ptr(), result);
     return output;
 }

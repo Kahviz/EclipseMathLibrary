@@ -7,7 +7,7 @@
 #undef max
 #endif
 
-#define UNTILITEDMATHversion 0.06
+#define BORONMATHversion 0.07
 
 #include "SIMD/Vector2/Vector2.h"
 #include "SIMD/Vector3/Vector3.h"
@@ -45,7 +45,7 @@
 
 //Structs
 struct Transform {
-    Vector3 Position{ 0,0,0 };
-    Vector3 Orientation{ 0,0,0 };
-    Vector3 Size{ 1,1,1 };
+    BML::Vector3 Position{ 0,0,0 };
+    BML::Vector3 Orientation{ 0,0,0 };
+    BML::Vector3 Size{ 1,1,1 };
 };
