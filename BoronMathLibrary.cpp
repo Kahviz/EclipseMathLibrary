@@ -37,7 +37,6 @@ int main()
     cout << vec4_1 + vec4_2 << endl;
 
     mat4x4_1.row3() = { 67,67,67,67 };
-    Matrix4x4LookAtRH
 
     cout << mat4x4_1 << endl;
     return 0;
