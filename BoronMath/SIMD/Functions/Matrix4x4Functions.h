@@ -8,9 +8,8 @@
 
 
 inline BML::Matrix4x4 Matrix4x4LookAtRH(const BML::Vector3& eye, const BML::Vector3& target, const BML::Vector3& worldUp) {
-    BML::Vector3 zaxis = BML::Vector3(
-        target.x() - eye.x()
-    );
+    BML::Vector3 zaxis = (target - eye);
+    zaxis.normalize();
 
     zaxis.normalize();
 
