@@ -1,5 +1,5 @@
 # BoronMathLibrary ( BML )
-A Offical MathLib of BoronEngine
+A Offical MathLib of BoronGameEngine
 I begin to work with this when my engine is working probelly
 
 This mathlib has:
