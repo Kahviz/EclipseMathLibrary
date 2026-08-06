@@ -1,6 +1,6 @@
 # BoronMathLibrary ( BML )
 A Offical MathLib of BoronGameEngine
-I begin to work with this when my engine is working probelly
+I begin to work with this when my engine is working good
 
 This mathlib has:
 -Simd objects
