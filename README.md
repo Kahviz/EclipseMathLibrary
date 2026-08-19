@@ -7,4 +7,4 @@ This mathlib has:
 -Non simd objects
 -Useful functions for easy of use
 
-I am lazy so there's anything :)
+I am lazy so there's nothing :)
