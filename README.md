@@ -1,10 +1,23 @@
 # BoronMathLibrary ( BML )
 A Offical MathLib of BoronGameEngine
-I begin to work with this when my engine is working good
 
 This mathlib has:
 -Simd objects
 -Non simd objects
 -Useful functions for easy of use
 
-I am lazy so there's nothing :)
+## Building (Visual Studio Community 2026)
+
+1. Download or clone this repository
+2. In VS, go to **File → Open → CMake Project**
+3. Wait couple secunds
+4. Then the console should open
+
+## Support the Project
+
+**Star** this repository – it helps a lot!  
+**Watch** for updates!
+
+**Join BoronCommunity** https://discord.gg/6jkx4fgth6
+
+Questions or ideas? Feel free to reach out.
