@@ -13,7 +13,7 @@ add_executable(BoronMathLibrary
 	BoronMathLibrary.h
 	BoronMath/BoronMath.h
 	
-	"BoronMath/SIMD/Vector3/Vector3.h"
+	BoronMath/SIMD/Vector3/Vector3.h
 	BoronMath/SIMD/Vector4/Vector4.h
 	BoronMath/SIMD/Color255/Color255.h
 	BoronMath/SIMD/Matrix4x4/Matrix4x4.h
