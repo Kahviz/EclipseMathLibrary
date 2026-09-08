@@ -19,6 +19,7 @@ This mathlib has:
 
 **Star** this repository – it helps a lot!  
 **Watch** for updates!
+**Boost** the dc server
 
 **Join BoronCommunity** https://discord.gg/6jkx4fgth6
 
